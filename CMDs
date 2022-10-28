@@ -1,0 +1,25 @@
+
+Caminho01="/home/nathandrake/KVM/Pool03"
+Caminho02="/home/nathandrake/KVM/Pool04"
+
+mkdir "$Caminho01"
+mkdir "$Caminho02"
+virsh pool-define-as Pool01 dir - - - - "$Caminho01"
+virsh pool-define-as Pool02 dir - - - - "$Caminho02"
+virsh pool-start Pool01
+virsh pool-start Pool02
+virsh pool-autostart Pool01
+virsh pool-autostart Pool02
+
+virsh define ipfire.xml
+virsh create ipfire.xml ?
+
+virt-install --import --name $VM \
+--memory 2048 --vcpus 2 --cpu host \
+--disk $VM.qcow2,format=qcow2,bus=virtio \
+--disk $VM-cidata.iso,device=cdrom \
+--network bridge=virbr0,model=virtio \
+--os-type=linux \
+--os-variant=rhel7.5 \
+--graphics spice \
+--noautoconsole
