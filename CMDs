@@ -23,3 +23,5 @@ virt-install --import --name $VM \
 --os-variant=rhel7.5 \
 --graphics spice \
 --noautoconsole
+
+http://woshub.com/manage-kvm-virtual-machines-virsh-cli/
