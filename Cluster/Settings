@@ -51,4 +51,5 @@ WEB:
 $ xpra start --bind-tcp=0.0.0.0:9876,auth=password:value=P4ssw0rd --html=on --start=virt-manager --daemon=no --xvfb="/usr/bin/Xvfb +extension Composite -screen 0 "1360x768"x24+32 -nolisten tcp -noreset" --pulseaudio=no --notifications=no --bell=no :100
 
 CMD:
-vmhost$ sudo virt-clone -o node0 -n node1 --auto-clone
+$ sudo virt-clone -o node0 -n node1 --auto-clone
+$ virsh migrate --live --copy-storage-all ubuntu2204 qemu+ssh://10.0.0.22/system
