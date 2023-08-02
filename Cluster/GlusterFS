@@ -1,1 +1,26 @@
 
+nano /etc/hosts
+Add the following lines:
+192.168.10.10 node1
+192.168.10.11 node2
+
+sudo apt install glusterfs-server -y
+
+sudo systemctl start glusterd
+sudo systemctl enable glusterd
+
+sudo systemctl status glusterd
+
+$ sudo gluster peer probe node2
+
+Both Nodes
+$ sudo mkdir /glustervolume/vol1
+
+$ sudo gluster volume create vol1 replica 2 node1:/glustervolume/vol1 node2:/glustervolume/vol1
+
+$ sudo gluster volume start vol1
+
+$ sudo gluster volume status
+
+$ sudo localhost:/vol1 /opt glusterfs defaults,_netdev 0 0
+
