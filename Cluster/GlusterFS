@@ -25,5 +25,6 @@ $ sudo gluster volume start vol1
 
 $ sudo gluster volume status
 
-$ sudo localhost:/vol1 /opt glusterfs defaults,_netdev 0 0
+/etc/fstab
+localhost:/vol1 /opt glusterfs defaults,_netdev 0 0
 
