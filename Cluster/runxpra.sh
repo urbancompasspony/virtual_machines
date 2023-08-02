@@ -1,3 +1,6 @@
+# CRONTAB
+# @reboot bash /srv/containers/scripts/runxpra.sh
+
 #!/bin/bash
 
 #dbus-launch gsettings set org.virt-manager.virt-manager.connections uris "$HOSTS"
