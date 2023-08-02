@@ -16,15 +16,16 @@ $ sudo gluster peer probe HOSTNAMEHERE2
 
 $ sudo gluster peer status
 
-Both Nodes
-$ sudo mkdir /glustervolume/vol1
+NODE 01:
 
-$ sudo gluster volume create vol1 replica 2 node1:/glustervolume/vol1 node2:/glustervolume/vol1
+$ sudo mkdir /mnt/pool01
 
-$ sudo gluster volume start vol1
+$ sudo gluster volume create volume01 replica 2 node1:/mnt/pool01 node2:/mnt/pool01
 
-$ sudo gluster volume status
+$ sudo gluster volume start volume01
 
-/etc/fstab
-localhost:/vol1 /opt glusterfs defaults,_netdev 0 0
+$ sudo gluster volume status volume01
+
+sudo nano /etc/fstab
+localhost:/volume01 /srv/ glusterfs defaults,_netdev 0 0
 
