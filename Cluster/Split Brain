@@ -1,0 +1,34 @@
+
+$ gluster volume heal <VOLNAME> info
+
+a) 'Is in split-brain'
+A file in data or metadata split-brain will be listed with " - Is in split-brain" appended after its path/GFID. E.g. "/file4" in the output provided below. However, for a file in GFID split-brain, the parent directory of the file is shown to be in split-brain and the file itself is shown to be needing healing, e.g. "/dir" in the output provided below is in split-brain because of GFID split-brain of file "/dir/a". Files in split-brain cannot be healed without resolving the split-brain.
+
+b) 'Is possibly undergoing heal'
+When the heal info command is run, it (or to be more specific, the 'glfsheal' binary that is executed when you run the command) takes locks on each file to find if it needs healing. However, if the self-heal daemon had already started healing the file, it would have taken locks which glfsheal wouldn't be able to acquire. In such a case, it could print this message. Another possible case could be multiple glfsheal processes running simultaneously (e.g. multiple users ran a heal info command at the same time) and competing for same lock.
+
+gluster volume heal <VOLNAME> info split-brain
+gluster volume heal <VOLNAME> info
+
+SOLUTIONS:
+
+Select the bigger-file as source
+gluster volume heal <VOLNAME> split-brain bigger-file <FILE>
+
+Select the file with the latest mtime as source
+gluster volume heal <VOLNAME> split-brain latest-mtime <FILE>
+
+Select one of the bricks in the replica as the source for a particular file
+gluster volume heal <VOLNAME> split-brain source-brick <HOSTNAME:BRICKNAME> <FILE>
+
+Select one brick of the replica as the source for all files
+gluster volume heal <VOLNAME> split-brain source-brick <HOSTNAME:BRICKNAME>
+
+AUTOMATIC 
+
+# gluster volume set help | grep -A3 cluster.favorite-child-policy
+Option: cluster.favorite-child-policy
+Default Value: none
+Description: This option can be used to automatically resolve split-brains using various policies without user intervention. "size" picks the file with the biggest size as the source. "ctime" and "mtime" pick the file with the latest ctime and mtime respectively as the source. "majority" picks a file with identical mtime and size in more than half the number of bricks in the replica.
+
+MORE: https://docs.gluster.org/en/latest/Troubleshooting/resolving-splitbrain/#where-do-i-start
