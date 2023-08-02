@@ -5,3 +5,13 @@ Example:
 172.16.1.2 cluster-01
 172.16.1.3 cluster-02
 
+# Login through SSH without passwords:
+
+NODE1
+ssh-keygen -t rsa -b 4096
+ssh-copy-id administrador@cluster-02
+
+NODE 2
+ssh-keygen -t rsa -b 4096
+ssh-copy-id administrador@cluster-01
+
