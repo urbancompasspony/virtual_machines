@@ -1,8 +1,8 @@
 
 nano /etc/hosts
 Add the following lines:
-192.168.10.10 node1
-192.168.10.11 node2
+192.168.10.10 HOSTNAMEHERE1
+192.168.10.11 HOSTNAMEHERE2
 
 sudo apt install glusterfs-server -y
 
@@ -11,7 +11,10 @@ sudo systemctl enable glusterd
 
 sudo systemctl status glusterd
 
-$ sudo gluster peer probe node2
+$ sudo gluster peer probe HOSTNAMEHERE1
+$ sudo gluster peer probe HOSTNAMEHERE2
+
+$ sudo gluster peer status
 
 Both Nodes
 $ sudo mkdir /glustervolume/vol1
