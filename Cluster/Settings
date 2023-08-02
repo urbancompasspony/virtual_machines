@@ -7,10 +7,12 @@ Example:
 
 # Login through SSH without passwords:
 
-NODEs:
+ALL NODEs:
 
 $ ssh-keygen -t rsa -b 4096
+
 $ ssh-copy-id administrador@cluster-01
+
 $ sudo apt install -y \
     software-properties-common \
     apt-transport-https \
@@ -48,4 +50,5 @@ $ sudo apt-get install -y wget && \
 WEB:
 $ xpra start --bind-tcp=0.0.0.0:9876,auth=password:value=P4ssw0rd --html=on --start=virt-manager --daemon=no --xvfb="/usr/bin/Xvfb +extension Composite -screen 0 "1360x768"x24+32 -nolisten tcp -noreset" --pulseaudio=no --notifications=no --bell=no :100
 
+CMD:
 vmhost$ sudo virt-clone -o node0 -n node1 --auto-clone
