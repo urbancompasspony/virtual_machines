@@ -1,0 +1,11 @@
+Create a new uuid:
+$ uuidgen
+
+$ sudo nano /etc/libvirt/libvirtd.conf
+
+Search for host_uuid and change it.
+
+Reboot system!
+
+Check:
+virsh sysinfo | grep uuid
