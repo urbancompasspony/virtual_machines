@@ -4,7 +4,7 @@ Add the following lines:
 192.168.10.10 HOSTNAMEHERE1
 192.168.10.11 HOSTNAMEHERE2
 
-sudo apt install glusterfs-server -y
+sudo apt install glusterfs-server glusterfs-client -y
 
 sudo systemctl start glusterd
 sudo systemctl enable glusterd
