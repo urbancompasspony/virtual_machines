@@ -1,0 +1,7 @@
+
+# Edit /etc/hosts on each node, setting IP and hostname!
+Example:
+
+172.16.1.2 cluster-01
+172.16.1.3 cluster-02
+
