@@ -33,7 +33,9 @@ cp "$DISK_PATH" "${BACKUP_DIR}/backup_${TIMESTAMP}.qcow2"
 # Delete backups older than specified days
 find "$BACKUP_DIR" -name "backup_*.qcow2" -type f -mtime +$RETENTION_DAYS -delete
 
-crontab -e
+# Find VM
+# $ virsh list --all
+# sudo crontab -e
 # Run daily at 2 AM
 # 0 19 * * * /srv/containers/scripts/backupvm
-sudo chmod +x /srv/containers/scripts/backupvm
+# sudo chmod +x /srv/containers/scripts/backupvm
