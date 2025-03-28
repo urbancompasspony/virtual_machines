@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Configuration - MODIFY THESE VARIABLES
+VM_NAME="your-vm-name"  # Name of the virtual machine
+BACKUP_DIR="/path/to/backup/directory"
+RETENTION_DAYS=10
+BACKUP_PREFIX="daily-backup"
+
+# Create timestamp for backup filename
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+
+# Ensure backup directory exists
+mkdir -p "$BACKUP_DIR"
+
+# Create a unique snapshot name
+SNAPSHOT_NAME="${BACKUP_PREFIX}-${TIMESTAMP}"
+
+# Create a live snapshot
+virsh snapshot-create-as "$VM_NAME" "$SNAPSHOT_NAME" \
+    --description "Automated daily backup" \
+    --live \
+    --disk-only
+
+# Find the active disk for the VM
+DISK_PATH=$(virsh domblklist "$VM_NAME" --details | awk '$1=="disk" && $2=="disk" {print $3}')
+
+# Copy the current state of the disk to backup location
+cp "$DISK_PATH" "${BACKUP_DIR}/backup_${TIMESTAMP}.qcow2"
+
+# Optional: Compress the backup
+# gzip "${BACKUP_DIR}/backup_${TIMESTAMP}.qcow2"
+
+# Delete backups older than specified days
+find "$BACKUP_DIR" -name "backup_*.qcow2" -type f -mtime +$RETENTION_DAYS -delete
+
+crontab -e
+# Run daily at 2 AM
+# 0 19 * * * /path/to/backup_script.sh
