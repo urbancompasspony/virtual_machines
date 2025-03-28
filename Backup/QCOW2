@@ -35,4 +35,5 @@ find "$BACKUP_DIR" -name "backup_*.qcow2" -type f -mtime +$RETENTION_DAYS -delet
 
 crontab -e
 # Run daily at 2 AM
-# 0 19 * * * /path/to/backup_script.sh
+# 0 19 * * * /srv/containers/scripts/backupvm
+sudo chmod +x /srv/containers/scripts/backupvm
