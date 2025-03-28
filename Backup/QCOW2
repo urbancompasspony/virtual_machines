@@ -15,11 +15,15 @@ mkdir -p "$BACKUP_DIR"
 # Create a unique snapshot name
 SNAPSHOT_NAME="${BACKUP_PREFIX}-${TIMESTAMP}"
 
+virsh suspend "$VM_NAME"
+
 # Create a live snapshot
 virsh snapshot-create-as "$VM_NAME" "$SNAPSHOT_NAME" \
     --description "Automated daily backup" \
     --live \
     --disk-only
+
+sudo virsh resume "$VM_NAME"
 
 # Find the active disk for the VM
 DISK_PATH=$(virsh domblklist "$VM_NAME" --details | awk '$1=="disk" && $2=="disk" {print $3}')
